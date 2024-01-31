@@ -46,8 +46,13 @@ public final class RemoteFeedLoader {
             // but we pass .connectivity to completion
 
             switch result {
-                case .success(_):
-                    completion(.failure(.invalidData))
+                case .success(let data, let response):
+                    if let _ = try? JSONSerialization.jsonObject(with: data) {
+                        completion(.success([]))
+                    }
+                    else {
+                        completion(.failure(.invalidData))
+                    }
                 case .failure(_):
                     completion(.failure(.connectivity))
             }
