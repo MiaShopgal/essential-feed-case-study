@@ -38,7 +38,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
 
         expect(sut, toCompleteWithError: .connectivity) {
-            
+
             let clientError = NSError(domain: "This is test", code: 0)
             client.complete(with: clientError)
         }
@@ -49,11 +49,11 @@ class RemoteFeedLoaderTests: XCTestCase {
 
         let samples = [199, 201, 300, 400, 500]
         samples.enumerated().forEach { index, code in
-            
+
             expect(sut, toCompleteWithError: .invalidData) {
                 client.complete(withStatusCode: code, at: index)
             }
-            
+
         }
 
     }
@@ -80,18 +80,18 @@ class RemoteFeedLoaderTests: XCTestCase {
 
     private func expect(_ sut: RemoteFeedLoader,
                         toCompleteWithError error: RemoteFeedLoader.Error,
-                        when action: () -> Void, 
+                        when action: () -> Void,
                         file: StaticString = #filePath,
                         line: UInt = #line) {
-        var capturedErrors = [RemoteFeedLoader.Error]()
+        var capturedResults = [RemoteFeedLoader.Result]()
         sut.load {
             // note we get the .connectivity
-            capturedErrors.append($0)
+            capturedResults.append($0)
         }
 
         action()
 
-        XCTAssertEqual(capturedErrors, [error], file: file, line: line)
+        XCTAssertEqual(capturedResults, [.failure(error)], file: file, line: line)
     }
 
     private class HTTPClientSpy: HTTPClient {
