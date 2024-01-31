@@ -39,9 +39,9 @@ public final class RemoteFeedLoader {
             // but we pass .connectivity to completion
 
             switch result {
-                case .success(let hTTPURLResponse):
+                case .success(_):
                     completion(.invalidData)
-                case .failure(let error):
+                case .failure(_):
                     completion(.connectivity)
             }
         }
