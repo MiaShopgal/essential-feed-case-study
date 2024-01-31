@@ -52,7 +52,7 @@ class RemoteFeedLoaderTests: XCTestCase {
 
             expect(sut, toCompleteWith: .failure(.invalidData)) {
                 let json = makeItemsJSON([])
-                client.complete(withStatusCode: code,data: json, at: index)
+                client.complete(withStatusCode: code, data: json, at: index)
             }
 
         }
