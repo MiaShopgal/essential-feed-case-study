@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 public final class RemoteFeedLoader {
 
     let url: URL
@@ -35,6 +34,7 @@ public final class RemoteFeedLoader {
 
             switch result {
                 case let .success(data, response):
+//                    completion(self.map(data, from: response))
                     do {
                         let items = try FeedItemMapper.map(data, response)
                         completion(.success(items))
@@ -48,4 +48,3 @@ public final class RemoteFeedLoader {
         }
     }
 }
-
