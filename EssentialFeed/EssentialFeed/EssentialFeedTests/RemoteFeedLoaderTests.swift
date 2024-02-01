@@ -131,7 +131,6 @@ class RemoteFeedLoaderTests: XCTestCase {
                         line: UInt = #line) {
         var capturedResults = [RemoteFeedLoader.Result]()
         sut.load {
-            // note we get the .connectivity
             capturedResults.append($0)
         }
 
